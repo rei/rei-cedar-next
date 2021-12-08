@@ -1,9 +1,0 @@
-@import '../../../css/settings/index.scss';
-@import './vars/CdrCard.vars.scss';
-.cdr-card {
-  @include cdr-card-base-mixin;
-}
-
-:global(.cdr-card__link) {
-  @include cdr-card-link-mixin;
-}

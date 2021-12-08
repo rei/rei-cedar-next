@@ -10,7 +10,7 @@
 <script>
 import { useCssModule, defineComponent } from 'vue';
 
-export default defineComponent({
+export default /*#__PURE__*/defineComponent({
   name: 'CdrText',
   props: {
     tag: {

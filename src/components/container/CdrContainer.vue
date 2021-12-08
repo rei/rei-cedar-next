@@ -10,7 +10,7 @@ import propValidator from '../../utils/propValidator';
 import { buildClass } from '../../utils/buildClass';
 import mapClasses from '../../utils/mapClasses';
 
-export default defineComponent({
+export default /*#__PURE__*/defineComponent({
   name: 'CdrContainer',
   props: {
     /** Any valid HTML tag */

@@ -1,3 +1,4 @@
-import './css/main.scss';
+import { createApp } from 'vue'
+import App from './App.vue'
 
-export * from './index';
+createApp(App).mount('#app')
