@@ -44,7 +44,7 @@ test/unit/coverage
 coverage/
 
 # Build assets
-**/dist/*
+# **/dist/*
 src/**/styles/themes/*
 
 public/*.js
