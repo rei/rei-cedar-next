@@ -27,7 +27,7 @@ describe('CdrPopup', () => {
       expect(wrapper.emitted('closed')).toBeTruthy();
     });
 
-    it('emits closed event on click outside', async (done) => {
+    it('emits closed event on click outside', async () => new Promise(done => {
       const randomElement = document.createElement('div');
       document.body.appendChild(randomElement);
       wrapper.vm.handleClick({ target: randomElement });
@@ -35,7 +35,7 @@ describe('CdrPopup', () => {
         expect(wrapper.emitted('closed')).toBeTruthy();
         done();
       })
-    });
+    }));
   });
 
   describe('calculatePlacement', () => {

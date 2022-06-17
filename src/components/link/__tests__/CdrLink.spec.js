@@ -3,81 +3,120 @@ import sinon from 'sinon';
 import CdrLink from '../CdrLink.vue';
 
 describe('CdrLink', () => {
-  test('renders correctly', () => {
-    const wrapper = mount(CdrLink);
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  it('sets target attr correctly', () => {
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        target: '_self',
-      },
+  describe('basic link component', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrLink);
     });
-    expect(wrapper.attributes().target).toBe('_self');
-  });
 
-  it('sets a default href', () => {
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        href: 'www.rei.com'
-      }
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
-    expect(wrapper.attributes().href).toBe('www.rei.com');
-  });
 
-  it('sets rel attr correctly', () => {
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        rel: 'nofollow',
-      },
+    it('computes the base class correctly', () => {
+      expect(wrapper.classes()).toContain('cdr-link');
     });
-    expect(wrapper.attributes().rel).toBe('nofollow');
-  });
 
-  it('computes target="_blank" rel attr correctly', () => {
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        target: '_blank',
-      },
+    describe('when target prop is set', () => {
+      beforeEach(() => {
+        wrapper.setProps({ target: '_self' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets target attr correctly', () => {
+        expect(wrapper.attributes().target).toBe('_self');
+      });
     });
-    expect(wrapper.attributes().rel).toBe('noopener noreferrer');
-  });
 
-  it('computes the base class correctly', () => {
-    const wrapper = shallowMount(CdrLink);
-    expect(wrapper.classes()).toContain('cdr-link');
-  });
+    describe('with href prop set', () => {
+      beforeEach(() => {
+        wrapper.setProps({ href: 'www.rei.com' })
+      });
 
-  it('computes classes correctly for standalone modifier', () => {
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        modifier: 'standalone',
-      },
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets a default href', () => {
+        expect(wrapper.attributes().href).toBe('www.rei.com');
+      });
     });
-    expect(wrapper.classes()).toContain('cdr-link--standalone');
-  });
 
-  it('renders a link with a button element and no href attribute', () => {
-    const wrapper = mount(CdrLink, {
-      propsData: {
-        tag: 'button',
-      },
-    });
-    expect(wrapper.element).toMatchSnapshot();
-  });
+    describe('with rel prop set to "nofollow"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ rel: 'nofollow' })
+      });
 
-  it('emits a click', () => {
-    const spy = sinon.spy();
-    const wrapper = shallowMount(CdrLink, {
-      propsData: {
-        tag: 'button',
-      },
-      attrs: {
-        onClick: spy
-      },
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets rel attr correctly', () => {
+        expect(wrapper.attributes().rel).toBe('nofollow');
+      });
     });
-    wrapper.trigger('click');
-    expect(spy.called).toBeTruthy();
+
+    describe('when the target prop has been set to "_blank"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ target: '_blank' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('computes target="_blank" rel attr correctly', () => {
+        expect(wrapper.attributes().rel).toBe('noopener noreferrer');
+      });
+    });
+
+    describe('with standalone modifier set', () => {
+      beforeEach(() => {
+        wrapper.setProps({ modifier: 'standalone' })
+      });
+
+      it('computes classes correctly for standalone modifier', () => {
+        expect(wrapper.classes()).toContain('cdr-link--standalone');
+      });
+    });
+
+    describe('when the tag has been set to button', () => {
+      beforeEach(() => {
+        wrapper.setProps({ tag: 'button' })
+      });
+
+      it('renders a link with a button element and no href attribute', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+    });
+
+    describe('when tag has been set to button', ()=>{
+     let wrapper;
+     let spy; 
+
+      beforeEach(()=>{
+        spy = sinon.spy();
+        wrapper = shallowMount(CdrLink, {
+          propsData: {
+            tag: 'button',
+          },
+          attrs: {
+            onClick: spy
+          },
+        });
+      });
+
+      it('renders a link with a button element and no href attribute', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('emits a click', () => {
+        wrapper.trigger('click');
+        expect(spy.called).toBeTruthy();
+      });
+    });
   });
 });

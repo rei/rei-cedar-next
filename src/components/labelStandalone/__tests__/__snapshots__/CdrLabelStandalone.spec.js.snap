@@ -1,6 +1,89 @@
 // Vitest Snapshot v1
 
-exports[`CdrFormLabelStandalone > matches snapshot 1`] = `
+exports[`CdrFormLabelStandalone > component with both required and optional labels > renders correctly 1`] = `
+<div
+  class="cdr-label-standalone"
+>
+  <div
+    class="cdr-label-standalone__label-wrapper"
+  >
+    <label
+      class="cdr-label-standalone__label"
+      for="test"
+    >
+      test 
+      <span
+        aria-hidden="true"
+      >
+        *
+      </span>
+    </label>
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <div
+    class="cdr-label-standalone__input-wrap cdr-label-standalone__input-spacing"
+  >
+    
+    
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+  <div
+    class="cdr-label-standalone__post-content"
+  >
+    
+    
+    
+    
+  </div>
+</div>
+`;
+
+exports[`CdrFormLabelStandalone > component with hideLabel > renders correctly 1`] = `
+<div
+  class="cdr-label-standalone"
+>
+  <div
+    class="cdr-label-standalone__label-wrapper"
+  >
+    <label
+      class="cdr-label-standalone__label cdr-label-standalone__label--sr-only"
+      for="test"
+    >
+      Label Test 
+      <!--v-if-->
+    </label>
+    <!--v-if-->
+    <span
+      class="cdr-label-standalone__helper"
+      id="test-helper-text-top"
+    >
+      
+      very helpful
+      
+    </span>
+  </div>
+  <div
+    class="cdr-label-standalone__input-wrap cdr-label-standalone__input-spacing"
+  >
+    
+    
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+  <div
+    class="cdr-label-standalone__post-content"
+  >
+    
+    
+    
+    
+  </div>
+</div>
+`;
+
+exports[`CdrFormLabelStandalone > component with label, forId, required and helper/info slots > renders correctly 1`] = `
 <div
   class="cdr-label-standalone"
 >
@@ -42,6 +125,46 @@ exports[`CdrFormLabelStandalone > matches snapshot 1`] = `
     very informative
     
   </span>
+  <div
+    class="cdr-label-standalone__post-content"
+  >
+    
+    
+    
+    
+  </div>
+</div>
+`;
+
+exports[`CdrFormLabelStandalone > component with optional label > renders correctly 1`] = `
+<div
+  class="cdr-label-standalone"
+>
+  <div
+    class="cdr-label-standalone__label-wrapper"
+  >
+    <label
+      class="cdr-label-standalone__label"
+      for="test"
+    >
+      test 
+      <span
+        class="cdr-label-standalone__optional"
+      >
+        (optional)
+      </span>
+    </label>
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <div
+    class="cdr-label-standalone__input-wrap cdr-label-standalone__input-spacing"
+  >
+    
+    
+    <!--v-if-->
+  </div>
+  <!--v-if-->
   <div
     class="cdr-label-standalone__post-content"
   >

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`CdrQuote > renders correctly 1`] = `
+exports[`CdrQuote > default component > renders correctly 1`] = `
 <aside
   class="cdr-quote"
 >
@@ -20,7 +20,7 @@ exports[`CdrQuote > renders correctly 1`] = `
 </aside>
 `;
 
-exports[`CdrQuote > renders pullquote correctly 1`] = `
+exports[`CdrQuote > pullquote > renders correctly 1`] = `
 <blockquote
   class="cdr-quote cdr-quote--pull"
 >

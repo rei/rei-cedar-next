@@ -1,6 +1,16 @@
 // Vitest Snapshot v1
 
-exports[`CdrLink > renders a link with a button element and no href attribute 1`] = `
+exports[`CdrLink > basic link component > renders correctly 1`] = `
+<a
+  class="cdr-link"
+  href="#"
+>
+  
+  
+</a>
+`;
+
+exports[`CdrLink > basic link component > when tag has been set to button > renders a link with a button element and no href attribute 1`] = `
 <button
   class="cdr-link"
 >
@@ -9,10 +19,53 @@ exports[`CdrLink > renders a link with a button element and no href attribute 1`
 </button>
 `;
 
-exports[`CdrLink > renders correctly 1`] = `
+exports[`CdrLink > basic link component > when target prop is set > renders correctly 1`] = `
 <a
   class="cdr-link"
   href="#"
+  target="_self"
+>
+  
+  
+</a>
+`;
+
+exports[`CdrLink > basic link component > when the tag has been set to button > renders a link with a button element and no href attribute 1`] = `
+<button
+  class="cdr-link"
+>
+  
+  
+</button>
+`;
+
+exports[`CdrLink > basic link component > when the target prop has been set to "_blank" > renders correctly 1`] = `
+<a
+  class="cdr-link"
+  href="#"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  
+  
+</a>
+`;
+
+exports[`CdrLink > basic link component > with href prop set > renders correctly 1`] = `
+<a
+  class="cdr-link"
+  href="www.rei.com"
+>
+  
+  
+</a>
+`;
+
+exports[`CdrLink > basic link component > with rel prop set to "nofollow" > renders correctly 1`] = `
+<a
+  class="cdr-link"
+  href="#"
+  rel="nofollow"
 >
   
   

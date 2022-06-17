@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`CdrAccordionGroup > when mounted > renders correctly 1`] = `
+exports[`CdrAccordionGroup > component snapshot when mounted > renders correctly 1`] = `
 <ul
   class="cdr-accordion-group"
 >
@@ -117,7 +117,7 @@ exports[`CdrAccordionGroup > when mounted > renders correctly 1`] = `
 </ul>
 `;
 
-exports[`CdrAccordionGroup > when unwrapped > renders correctly 1`] = `
+exports[`CdrAccordionGroup > component snapshot when mounted unwrapped > renders correctly 1`] = `
 <ul
   class="cdr-accordion-group"
 >

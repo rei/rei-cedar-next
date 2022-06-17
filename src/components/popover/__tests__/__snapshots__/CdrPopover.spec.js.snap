@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`CdrPopover > matches snapshot 1`] = `
+exports[`CdrPopover > renders correctly 1`] = `
 <div
   class="cdr-popover--wrapper cdr-popover--position"
 >
@@ -36,7 +36,7 @@ exports[`CdrPopover > matches snapshot 1`] = `
         </div>
         <button
           aria-label="Close"
-          class="cdr-button cdr-button--primary cdr-button--icon-only-small cdr-button--icon-only cdr-button--icon-only cdr-popover__close-button"
+          class="cdr-button cdr-button--primary cdr-button--icon-only-small cdr-button--icon-only cdr-popover__close-button"
           type="button"
         >
           

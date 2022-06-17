@@ -3,113 +3,158 @@ import CdrButton from '../CdrButton.vue';
 import sinon from 'sinon'
 
 describe('CdrButton', () => {
-  it('renders correctly', () => {
-    const wrapper = mount(CdrButton);
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  it('sets default type prop correctly', () => {
-    const wrapper = shallowMount(CdrButton);
-    expect(wrapper.attributes().type).toBe('button');
-  });
-
-  it('sets type attr correctly', () => {
-    const wrapper = shallowMount(CdrButton, {
-      propsData: {
-        type: 'reset',
-      },
+  describe('snapshot test', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrButton);
+    })
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
-    expect(wrapper.attributes().type).toBe('reset');
-  });
-
-  it('click function triggers correctly', () => {
-    const spy = sinon.spy();
-    const wrapper = shallowMount(CdrButton, {
-      attrs: {
-        onClick: spy
-      },
-    });
-    wrapper.trigger('click');
-    expect(spy.calledOnce).toBeTruthy();
-  });
-
-  it('computes base class correctly', () => {
-    const wrapper = shallowMount(CdrButton, {
-      propsData: {
-        el: 'a',
-      },
-    });
-
-    expect(wrapper.classes()).toContain('cdr-button');
-  });
-
-  it('adds custom size class when icon only', () => {
-    const wrapper = shallowMount(CdrButton, {
-      propsData: {
-        size: 'large',
-        iconOnly: true,
-      },
-    });
-    expect(wrapper.vm.sizeClass).toBe('cdr-button--icon-only-large');
   })
 
-  it('does not add icon class when slot is unused', () => {
-    const wrapper = shallowMount(CdrButton);
-    expect(wrapper.vm.iconClass).toBe(undefined);
-  });
-
-  it('adds class for icon only', () => {
-    const wrapper = shallowMount(CdrButton, {
-      propsData: {
-        iconOnly: true,
-        withBackground: true,
-      }
-    });
-    expect(wrapper.classes()).toContain('cdr-button--icon-only');
-    expect(wrapper.classes()).toContain('cdr-button--with-background');
-  });
-
-  it('adds icon-left class when icon slot is used', () => {
-    const wrapper = shallowMount(CdrButton, {
-      slots: {
-        default: [ 'default slot for text' ],
-        'icon-left': '<div />',
-      },
+  describe('component unit tests', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallowMount(CdrButton);
     });
 
-    expect(wrapper.classes()).toContain('cdr-button--has-icon-left');
-  });
+    describe('default component with no configuration', () => {
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('sets the default type prop correctly', () => {
+        expect(wrapper.attributes().type).toBe('button');
+      });
+
+      it('does not add icon class when slot is unused', () => {
+        expect(wrapper.vm.iconClass).toBe(undefined);
+      });
+    })
+
+    describe('with prop "type" set to "reset"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ type: 'reset' });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('sets type attr correctly', () => {
+        expect(wrapper.attributes().type).toBe('reset');
+      });
+    })
+
+    describe('when "el" is set to "a"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ el: 'a' });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('computes base class correctly', () => {
+        expect(wrapper.classes()).toContain('cdr-button');
+      });
+    })
+
+    describe('when "iconOnly" is set to true and size is "large"', () => {
+      beforeEach(() => {
+        wrapper.setProps({
+          size: 'large',
+          iconOnly: true,
+        });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('adds custom size class', () => {
+        expect(wrapper.vm.sizeClass).toBe('cdr-button--icon-only-large');
+      });
+    })
+
+    describe('when "iconOnly" and "withBackground" is set to true', () => {
+      beforeEach(() => {
+        wrapper.setProps({
+          iconOnly: true,
+          withBackground: true,
+        });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('adds class for icon only', () => {
+        expect(wrapper.classes()).toContain('cdr-button--icon-only');
+      });
+
+      it('adds class for icon background', () => {
+        expect(wrapper.classes()).toContain('cdr-button--with-background');
+      });
+    })
+
+    describe('with tag prop set to "a"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ tag: 'a' });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('renders a link', () => {
+        expect(wrapper.element.tagName).toBe('A');
+      });
+    })
+
+    describe('with a function passed to the onClick attribute', () => {
+      let spy;
+      beforeEach(() => {
+        spy = sinon.spy();
+        wrapper = shallowMount(CdrButton, {
+          attrs: {
+            onClick: spy
+          },
+        });
+        wrapper.trigger('click');
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('the function is called', () => {
+        expect(spy.calledOnce).toBeTruthy();
+      });
+    })
 
 
-  it('adds icon left class when slot is used', () => {
-    const wrapper = shallowMount(CdrButton, {
-      slots: {
-        default: [ 'default slot for text' ],
-        'icon-left': '<div />',
-      },
+
+    describe('with an icon-left slot', () => {
+      beforeEach(() => {
+        wrapper = shallowMount(CdrButton, {
+          slots: {
+            default: ['default slot for text'],
+            'icon-left': '<div />',
+          },
+        });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('adds the "cdr-button--has-icon-left" class', ()=>{
+        expect(wrapper.classes()).toContain('cdr-button--has-icon-left');
+      })
     });
 
-    expect(wrapper.classes()).toContain('cdr-button--has-icon-left');
-  });
-
-
-  it('adds icon right class when slot is used', () => {
-    const wrapper = shallowMount(CdrButton, {
-      slots: {
-        default: [ 'default slot for text' ],
-        'icon-right': '<div />',
-      },
+    describe('with an icon-left slot', () => {
+      beforeEach(() => {
+        wrapper = shallowMount(CdrButton, {
+          slots: {
+            default: ['default slot for text'],
+            'icon-right': '<div />',
+          },
+        });
+      });
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+      it('adds the "cdr-button--has-icon-right" class', ()=>{
+        expect(wrapper.classes()).toContain('cdr-button--has-icon-right');
+      })
     });
-
-    expect(wrapper.classes()).toContain('cdr-button--has-icon-right');
-  });
-
-  it('renders a link', () => {
-    const wrapper = shallowMount(CdrButton, {
-      propsData: {
-        tag: 'a',
-      },
-    });
-    expect(wrapper.element.tagName).toBe('A');
   });
 });

@@ -4,496 +4,489 @@ import { h } from '@vue/runtime-core';
 import CdrInput from '../CdrInput.vue';
 import CdrButton from '../../button/CdrButton.vue';
 
+const baseComponentPattern = {
+  propsData: {
+    label: 'Label Test',
+    id: 'renders',
+  }
+}
+
 describe('CdrInput', () => {
-  it('renders correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'Label Test',
-        id: 'renders'
-      },
+  describe('basic input component', () => {
+    let wrapper;
+    let input;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, { ...baseComponentPattern });
+      input = wrapper.find('input');
     });
-    expect(wrapper.element).toMatchSnapshot();
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders an input element', () => {
+      expect(input.element.tagName).toBe('INPUT');
+    });
+
+    it('sets default input type correctly', () => {
+      expect(input.attributes('type')).toBe('text');
+    });
+
+    it('does not apply aria-describedby if attr or helper slots are not present', () => {
+      expect(input.attributes('aria-describedby')).toBe(undefined);
+    });
+
+    it('emits an input event', () => {
+      input.setValue('foo');
+      expect(wrapper.emitted()['update:modelValue'][0][0]).toBe('foo');
+    });
+    
+    describe('with prop type of "number"', () => {
+      beforeEach(() => {
+        wrapper.setProps({ type: 'number' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+
+      it('has a inputmode attribute of "numeric"', () => {
+        expect(input.attributes('inputmode')).toBe('numeric');
+      });
+    });
+
+    describe('with error prop set', () => {
+      beforeEach(() => {
+        wrapper.setProps({ error: 'Something is wrong!' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+    });
+
+    describe('with the "disabled" prop set to true', () => {
+      beforeEach(() => {
+        wrapper.setProps({ disabled: true })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets input disabled attribute correctly', () => {
+        expect(input.attributes('disabled')).toBe('');
+      });
+    });
+
+    describe('with the "required" prop set to true', () => {
+      beforeEach(() => {
+        wrapper.setProps({ required: true })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets input disabled attribute correctly', () => {
+        expect(input.attributes('aria-required')).toBe('true');
+      });
+    });
+
+    describe('with prop "type" set to "number"', () => {
+      beforeEach(() => {
+        wrapper.setProps({
+          required: true,
+          type: 'number',
+        })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets the expected attributes', () => {
+        expect(wrapper.find('input').attributes('novalidate')).toBe('');
+        expect(wrapper.find('input').attributes('pattern')).toBe('[0-9]*');
+        expect(wrapper.find('input').attributes('inputmode')).toBe('numeric');
+        expect(wrapper.find('input').attributes('type')).toBe('number');
+      });
+    });
+
+    describe('with prop "numeric" set to true', () => {
+      beforeEach(() => {
+        wrapper.setProps({
+          required: true,
+          numeric: true,
+        })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets the expected attributes', () => {
+        expect(wrapper.find('input').attributes('novalidate')).toBe('');
+        expect(wrapper.find('input').attributes('pattern')).toBe('[0-9]*');
+        expect(wrapper.find('input').attributes('inputmode')).toBe('numeric');
+        expect(wrapper.find('input').attributes('type')).toBe('text');
+      });
+    });
+
+    describe('with the "rows" prop set to 2', () => {
+      beforeEach(() => {
+        wrapper.setProps({ rows: 2 })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets multiline to textarea correctly', () => {
+        expect(wrapper.find('textarea').element.tagName).toBe('TEXTAREA');
+      });
+    });
+
+    describe('when "multiline" is set to true and the "rows" prop is set to 10', () => {
+      beforeEach(() => {
+        wrapper.setProps({
+          multiLine: true,
+          rows: 10
+        })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('sets multiline rows correctly', () => {
+        expect(wrapper.find('textarea').attributes('rows')).toBe('10');
+      });
+    });
+
+    describe('when "type" is set to url', () => {
+      beforeEach(() => {
+        wrapper.setProps({ type: 'url' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('overrides input type correctly', () => {
+        expect(wrapper.find('.cdr-input').attributes('type')).toBe('url');
+      });
+    });
+
+    describe('with error prop set', () => {
+      beforeEach(() => {
+        wrapper.setProps({ error: 'incorrect!' })
+      });
+
+      it('renders correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+      });
+
+      it('renders text when passed as error', () => {
+        expect(wrapper.find('.cdr-form-error').text()).toBe('incorrect!');
+      });
+    });
   });
 
-  it('renders number input correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'Label Test',
-        id: 'renders',
-        type: 'number',
-      },
+  describe('components with attributes', () => {
+    let wrapper;
+    let input;
+    let blurSpy;
+    let pasteSpy;
+    let keydownSpy;
+    let focusSpy;
+    beforeEach(() => {
+      blurSpy = sinon.spy();
+      pasteSpy = sinon.spy();
+      keydownSpy = sinon.spy();
+      focusSpy = sinon.spy();
+      wrapper = mount(CdrInput, {
+        propsData: {
+          label: 'Label Test',
+          id: 'test'
+        },
+        attrs: {
+          pizza: 'time',
+          name: 'testName',
+          readonly: true,
+          autofocus: true,
+          maxlength: '20',
+          placeholder: 'test placeholder',
+          onBlur: blurSpy,
+          onPaste: pasteSpy,
+          onKeydown: keydownSpy,
+          onFocus: focusSpy
+        }
+      });
+      input = wrapper.find('.cdr-input');
     });
-    expect(wrapper.element).toMatchSnapshot();
-  });
 
-  it('renders error state correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'Label Test',
-        id: 'renders',
-        error: 'Something is wrong!'
-      },
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
-    expect(wrapper.element).toMatchSnapshot();
-  });
 
-  it('renders an input element', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'Label Test',
-      },
+    it('passes all attributes to input element', () => {
+      expect(input.attributes('pizza')).toBe('time');
+      expect(input.attributes('name')).toBe('testName');
+      expect(input.attributes('readonly')).toBe('');
+      expect(input.attributes('autofocus')).toBe('');
+      expect(input.attributes('maxlength')).toBe('20');
+      expect(input.attributes('placeholder')).toBe('test placeholder');
     });
-    expect(wrapper.find('.cdr-input').element.tagName).toBe('INPUT');
-  });
 
-  it('sets input name attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'Label Test',
-      },
-      attrs: {
-        name: 'testName',
-      }
+    it('emits a blur event', () => {
+      input.trigger('blur')
+      expect(blurSpy.calledOnce).toBeTruthy();
     });
-    expect(wrapper.find('.cdr-input').attributes('name')).toBe('testName');
-  });
 
-  it('sets input disabled attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        disabled: true,
-      },
+    it('emits a paste event', () => {
+      input.trigger('paste')
+      expect(pasteSpy.calledOnce).toBeTruthy();
     });
-    expect(wrapper.find('.cdr-input').attributes('disabled')).toBe('');
-  });
 
-  it('sets input readonly attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        readonly: true,
-      },
+    it('emits a keydown event', () => {
+      input.trigger('keydown', { key: 'a' })
+      expect(keydownSpy.called).toBeTruthy();
     });
-    expect(wrapper.find('.cdr-input').attributes('readonly')).toBe('');
-  });
 
-  it('sets input required attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        required: true,
-      },
-    });
-    expect(wrapper.find('input').attributes('aria-required')).toBe('true');
-  });
-
-  it('sets attrs for number type input', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        required: true,
-        type: 'number',
-        id: 'test',
-      },
-    });
-    expect(wrapper.find('input').attributes('novalidate')).toBe('');
-    expect(wrapper.find('input').attributes('pattern')).toBe('[0-9]*');
-    expect(wrapper.find('input').attributes('inputmode')).toBe('numeric');
-    expect(wrapper.find('input').attributes('type')).toBe('number');
-  });
-
-  it('sets attrs for numeric freeform input', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        required: true,
-        numeric: true
-      },
-    });
-    expect(wrapper.find('input').attributes('novalidate')).toBe('');
-    expect(wrapper.find('input').attributes('pattern')).toBe('[0-9]*');
-    expect(wrapper.find('input').attributes('inputmode')).toBe('numeric');
-    expect(wrapper.find('input').attributes('type')).toBe('text');
-  });
-
-  it('sets input autofocus attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        autofocus: true,
-      },
-    });
-    expect(wrapper.find('.cdr-input').attributes('autofocus')).toBe('');
-  });
-
-  it('sets input maxlength attribute correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        maxlength: '20',
-      },
-    });
-    expect(wrapper.find('.cdr-input').attributes('maxlength')).toBe('20');
-  });
-
-  it('sets input placeholder correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        placeholder: 'test placeholder',
-      },
-    });
-    expect(wrapper.find('.cdr-input').attributes('placeholder')).toBe('test placeholder');
-  });
-
-  it('sets multiline to textarea correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        rows: 2,
-      },
-    });
-    expect(wrapper.find('textarea').element.tagName).toBe('TEXTAREA');
-  });
-
-  it('sets multiline rows correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        multiLine: true,
-        rows: 10
-      },
-    });
-    expect(wrapper.find('textarea').attributes('rows')).toBe('10');
-  });
-
-  it('sets default input type correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-    });
-    expect(wrapper.find('.cdr-input').attributes('type')).toBe('text');
-  });
-
-  it('overrides input type correctly', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        type: 'url',
-      },
-    });
-    expect(wrapper.find('.cdr-input').attributes('type')).toBe('url');
-  });
-
-  it('emits an input event', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        value: 'bar'
-      },
-    });
-    const input = wrapper.find('.cdr-input');
-    input.setValue('foo');
-    expect(wrapper.emitted()['update:modelValue'][0][0]).toBe('foo');
-  });
-
-  it('emits a blur event', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        onBlur: spy
-      }
-    });
-    const input = wrapper.find('.cdr-input');
-    input.trigger('blur')
-    expect(spy.calledOnce).toBeTruthy();
-  });
-
-  it('emits a focus event', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        onFocus: spy
-      }
-    });
-    const input = wrapper.find('.cdr-input');
-    input.trigger('focus')
-    expect(spy.calledOnce).toBeTruthy();
-  });
-
-  it('adds focused class to wrapper on input focus', async () => {
-    const spy = sinon.spy();
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        onFocus: spy
-      }
-    });
-    const input = wrapper.find('.cdr-input');
-    input.trigger('focus')
-    await wrapper.vm.$nextTick();
-    expect(wrapper.find('.cdr-input--focus').exists()).toBeTruthy();
-    input.trigger('blur')
-    await wrapper.vm.$nextTick();
-    expect(wrapper.find('.cdr-input--focus').exists()).toBeFalsy();
-  });
-
-  it('emits a paste event', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      attrs: {
-        onPaste: spy
-      }
-    });
-    const input = wrapper.find('.cdr-input');
-    input.trigger('paste')
-    expect(spy.calledOnce).toBeTruthy();
-  });
-
-  it('emits a keydown event', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test'
-      },
-      attrs: {
-        onKeydown: spy
-      }
-    });
-    const input = wrapper.find('.cdr-input');
-    input.trigger('keydown', {
-      key: 'a'
+    it('emits a focus event', () => {
+      input.trigger('focus')
+      expect(focusSpy.calledOnce).toBeTruthy();
     })
-    expect(spy.called).toBeTruthy();
-  });
 
-  it('renders helper-text-bottom slot', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      slots: {
-        'helper-text-bottom': 'very helpful',
-      },
+    it('adds focused class to wrapper on input focus and removes it on blur', async () => {
+      input.trigger('focus')
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find('.cdr-input--focus').exists()).toBeTruthy();
+      input.trigger('blur')
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find('.cdr-input--focus').exists()).toBeFalsy();
     });
-    expect(wrapper.find('.cdr-input__helper-text').text()).toBe('very helpful');
   });
 
-  it('renders pre-icon slot', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      slots: {
-        'pre-icon': '🤠',
-      },
+  describe('with "helper-text-bottom" slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        ...baseComponentPattern,
+        slots: { 'helper-text-bottom': 'very helpful' },
+      });
     });
-    expect(wrapper.find('.cdr-input__pre-icon').text()).toBe('🤠');
-  });
 
-  it('renders post-icon slot', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      slots: {
-        'post-icon': '😎',
-      },
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
-    expect(wrapper.find('.cdr-input__post-icon').text()).toBe('😎');
-  });
 
-  it('adds spacing class when post-icon slot is present', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-      },
-      slots: {
-        'post-icon': '😎',
-      },
+    it('renders helper-text-bottom slot', () => {
+      expect(wrapper.find('.cdr-input__helper-text').text()).toBe('very helpful');
     });
-    expect(wrapper.find('.cdr-input--posticon').exists()).toBe(true);
   });
 
-  it('adds spacing class when multiple elements are present in post-icon slot', () => {
-    const wrapper = mount(h(CdrInput, {
-        id: 'test',
-        label: 'test',
-      },
-      {
-        'post-icon': () => [
-          h(CdrButton),
-          h(CdrButton)
-        ],
-      },
-    ));
-    expect(wrapper.find('.cdr-input--posticons').exists()).toBe(true);
-  });
-
-  it('renders info action slot', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        id: 'info-action'
-      },
-      slots: {
-        'info-action': '🤠',
-      },
+  describe('with a pre-icon slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        ...baseComponentPattern,
+        slots: { 'pre-icon': '🤠' },
+      });
     });
-    expect(wrapper.find('.cdr-label-standalone__info-action').text()).toBe('🤠');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders pre-icon slot', () => {
+      expect(wrapper.find('.cdr-input__pre-icon').text()).toBe('🤠');
+    });
   });
 
-  it('renders error slot when error state is active', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        error: true
-      },
-      slots: {
-        'error': 'whoops',
-      },
+  describe('with a post-icon slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        ...baseComponentPattern,
+        slots: { 'post-icon': '😎' },
+      });
     });
-    expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders post-icon slot', () => {
+      expect(wrapper.find('.cdr-input__post-icon').text()).toBe('😎');
+    });
+
+    it('adds spacing class when post-icon slot is present', () => {
+      expect(wrapper.find('.cdr-input--posticon').exists()).toBe(true);
+    });
   });
 
-  it('renders text when passed as error', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        error: 'incorrect!'
-      },
+  describe('when multiple elements are present in post-icon slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        ...baseComponentPattern,
+        slots: {
+          'post-icon': () => [
+            h(CdrButton),
+            h(CdrButton)
+          ],
+        },
+      });
     });
-    expect(wrapper.find('.cdr-form-error').text()).toBe('incorrect!');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('adds spacing class', () => {
+      expect(wrapper.find('.cdr-input--posticons').exists()).toBe(true);
+    });
   });
 
-  it('does not render error slot when error state is inactive', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        error: false
-      },
-      slots: {
-        'error': 'whoops',
-      },
+  describe('with info action slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        ...baseComponentPattern,
+        slots: { 'info-action': '🤠' },
+      });
     });
-    expect(wrapper.find('.cdr-form-error').exists()).toBe(false);
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders info action slot', () => {
+      expect(wrapper.find('.cdr-label-standalone__info-action').text()).toBe('🤠');
+    });
   });
 
-  it('renders error slot instead of bottom helper slot when error is active', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        error: true,
-      },
-      slots: {
-        'error': 'whoops',
-        'helper-text-bottom': 'not me'
-      },
+  describe('when error state is active', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        propsData: {
+          id: 'test',
+          label: 'test',
+          error: true
+        },
+        slots: { 'error': 'whoops' },
+      })
     });
-    expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
-    expect(wrapper.find('.cdr-input__helper-text-bottom').exists()).toBe(false);
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders error slot', () => {
+      expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
+    });
   });
 
-  // NOTE - can't use v-model directly here, targeting the `data` prop instead
-  it('updating v-model data updates the input', async () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        id: 'test',
-        label: 'test',
-        value: 'bar'
-      },
+  describe(' when error state is inactive', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        propsData: {
+          id: 'test',
+          label: 'test',
+          error: false
+        },
+        slots: { 'error': 'whoops' },
+      });
     });
-    const input = wrapper.find('.cdr-input');
-    wrapper.setProps({value: ''});
-    await wrapper.vm.$nextTick();
-    expect(input.element.value).toBe('');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('does not render error slot', () => {
+      expect(wrapper.find('.cdr-form-error').exists()).toBe(false);
+    });
   });
 
-  it('helper text slots are linked to input via aria-describedby', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        id: 'aria-test',
-      },
-      slots: {
-        'helper-text-top': 'extremely helpful',
-        'helper-text-bottom': 'very helpful',
-      },
+  describe('when error is active and a helper-bottom-text slot has been passed', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        propsData: {
+          id: 'test',
+          label: 'test',
+          error: true,
+        },
+        slots: {
+          'error': 'whoops',
+          'helper-text-bottom': 'not me'
+        },
+      });
     });
-    expect(wrapper.find('input').attributes('aria-describedby')).toBe('aria-test-helper-text-top aria-test-helper-text-bottom');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders error slot instead of bottom helper slot', () => {
+      expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
+      expect(wrapper.find('.cdr-input__helper-text-bottom').exists()).toBe(false);
+    });
   });
 
-  it('dynamic aria-describedby is merged with native attr', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        id: 'aria-test',
-      },
-      attrs: {
-        'aria-describedby': 'foo',
-      },
-      slots: {
-        'helper-text-top': 'extremely helpful',
-        'helper-text-bottom': 'very helpful',
-      },
+  describe('with both helper-text-top and helper-text-bottom slots', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        propsData: {
+          label: 'test',
+          id: 'aria-test',
+        },
+        slots: {
+          'helper-text-top': 'extremely helpful',
+          'helper-text-bottom': 'very helpful',
+        },
+      });
     });
-    expect(wrapper.find('input').attributes('aria-describedby')).toBe('aria-test-helper-text-top aria-test-helper-text-bottom foo');
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('helper text slots are linked to input via aria-describedby', () => {
+      expect(wrapper.find('input').attributes('aria-describedby')).toBe('aria-test-helper-text-top aria-test-helper-text-bottom');
+    });
   });
 
-  it('does not apply aria-describedby if attr or helper slots are not present', () => {
-    const wrapper = mount(CdrInput, {
-      propsData: {
-        label: 'test',
-        id: 'aria-test',
-      },
+  describe('with both helper-text-top and helper-text-bottom slots and aria-describedby set', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrInput, {
+        propsData: {
+          label: 'test',
+          id: 'aria-test',
+        },
+        attrs: {
+          'aria-describedby': 'foo',
+        },
+        slots: {
+          'helper-text-top': 'extremely helpful',
+          'helper-text-bottom': 'very helpful',
+        },
+      });
     });
-    expect(wrapper.find('input').attributes('aria-describedby')).toBe(undefined);
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('dynamic aria-describedby is merged with native attr', () => {
+      expect(wrapper.find('input').attributes('aria-describedby')).toBe('aria-test-helper-text-top aria-test-helper-text-bottom foo');
+    });
   });
 });

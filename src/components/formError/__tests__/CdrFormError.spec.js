@@ -2,35 +2,44 @@ import { mount } from '../../../../test/vue-jest-style-workaround.js';
 import CdrFormError from '../CdrFormError.vue';
 
 describe('CdrFormError', () => {
-  it('matches snapshot', () => {
-    const wrapper = mount(CdrFormError, {
-      propsData: {
-        error: 'yahoo!',
-      },
-    });
-    expect(wrapper.element).toMatchSnapshot();
-  });
+  describe('using just the error prop (no slot)', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrFormError, {
+        propsData: {
+          error: 'yahoo!',
+        },
+      });
+    })
 
-  it('renders error slot', () => {
-    const wrapper = mount(CdrFormError, {
-      propsData: {
-        error: true
-      },
-      slots: {
-        'error': 'whoops',
-      },
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
 
-    expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
-  });
+    it('renders error prop', () => {
+      expect(wrapper.find('.cdr-form-error').text()).toBe('yahoo!');
+    });
+  })
 
-  it('renders error prop', () => {
-    const wrapper = mount(CdrFormError, {
-      propsData: {
-        error: 'heyo!'
-      },
+  describe('using an error slot', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper =  mount(CdrFormError, {
+        propsData: {
+          error: true
+        },
+        slots: {
+          'error': 'whoops',
+        },
+      });
+    })
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
     });
 
-    expect(wrapper.find('.cdr-form-error').text()).toBe('heyo!');
+    it('renders error slot', () => {
+      expect(wrapper.find('.cdr-form-error').text()).toBe('whoops');
+    });
   });
 });

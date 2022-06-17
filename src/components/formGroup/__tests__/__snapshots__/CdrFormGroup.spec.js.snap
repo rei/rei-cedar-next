@@ -1,15 +1,16 @@
 // Vitest Snapshot v1
 
-exports[`CdrFormGroup > renders correctly 1`] = `
+exports[`CdrFormGroup > disabled form group > renders correctly 1`] = `
 <fieldset
   aria-describedby="false"
   aria-errormessage="false"
   aria-invalid="false"
-  class="cdr-form-group"
+  class="cdr-form-group cdr-form-group--disabled"
+  disabled=""
 >
   <legend>
     
-    hey
+    
     
     <!--v-if-->
     <!--v-if-->
@@ -18,14 +19,74 @@ exports[`CdrFormGroup > renders correctly 1`] = `
     class="cdr-form-group__wrapper"
   >
     
-    form elements!
     
   </div>
   <!--v-if-->
 </fieldset>
 `;
 
-exports[`CdrFormGroup > renders error state correctly 1`] = `
+exports[`CdrFormGroup > form group with error slot > renders correctly 1`] = `
+<fieldset
+  aria-describedby="123-error"
+  aria-errormessage="123-error"
+  aria-invalid="true"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    
+    
+    <!--v-if-->
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper cdr-form-group--error"
+  >
+    
+    
+  </div>
+  <div
+    class="cdr-form-error"
+    id="123-error"
+    role="status"
+  >
+    <span
+      class="cdr-form-error__icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="cdr-icon cdr-icon--small cdr-icon--inherit-color"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        
+        
+        
+        <g>
+          <path
+            d="M15.293 16.707a1 1 0 001.414-1.414L9.121 7.707a1 1 0 10-1.414 1.414l7.586 7.586z"
+            role="presentation"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10zm-2 0a8 8 0 11-16 0 8 8 0 0116 0z"
+            fill-rule="evenodd"
+          />
+        </g>
+        
+        <!--v-if-->
+      </svg>
+    </span>
+    
+    
+    whoops
+    
+    
+  </div>
+</fieldset>
+`;
+
+exports[`CdrFormGroup > form group with error state > renders correctly 1`] = `
 <fieldset
   aria-describedby="renders-error"
   aria-errormessage="renders-error"
@@ -81,6 +142,203 @@ exports[`CdrFormGroup > renders error state correctly 1`] = `
     
     <span>
       Something is happening?
+    </span>
+    
+  </div>
+</fieldset>
+`;
+
+exports[`CdrFormGroup > form group with label and default slot > renders correctly 1`] = `
+<fieldset
+  aria-describedby="false"
+  aria-errormessage="false"
+  aria-invalid="false"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    hey
+    
+    <!--v-if-->
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper"
+  >
+    
+    form elements!
+    
+  </div>
+  <!--v-if-->
+</fieldset>
+`;
+
+exports[`CdrFormGroup > form group with optional state > renders correctly 1`] = `
+<fieldset
+  aria-describedby="false"
+  aria-errormessage="false"
+  aria-invalid="false"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    hey
+    
+    <!--v-if-->
+    <span
+      class="cdr-form-group__optional"
+    >
+       (optional)
+    </span>
+  </legend>
+  <div
+    class="cdr-form-group__wrapper"
+  >
+    
+    form elements!
+    
+  </div>
+  <!--v-if-->
+</fieldset>
+`;
+
+exports[`CdrFormGroup > form group with required and optional state > renders correctly 1`] = `
+<fieldset
+  aria-describedby="false"
+  aria-errormessage="false"
+  aria-invalid="false"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    hey
+    
+    <span
+      aria-label="required"
+    >
+       *
+    </span>
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper"
+  >
+    
+    form elements!
+    
+  </div>
+  <!--v-if-->
+</fieldset>
+`;
+
+exports[`CdrFormGroup > form group with required state > renders correctly 1`] = `
+<fieldset
+  aria-describedby="false"
+  aria-errormessage="false"
+  aria-invalid="false"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    hey
+    
+    <span
+      aria-label="required"
+    >
+       *
+    </span>
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper"
+  >
+    
+    form elements!
+    
+  </div>
+  <!--v-if-->
+</fieldset>
+`;
+
+exports[`CdrFormGroup > when error state is inactive > renders correctly 1`] = `
+<fieldset
+  aria-describedby="false"
+  aria-errormessage="false"
+  aria-invalid="false"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    
+    
+    <!--v-if-->
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper"
+  >
+    
+    
+  </div>
+  <!--v-if-->
+</fieldset>
+`;
+
+exports[`CdrFormGroup > when text is passed as error prop > renders correctly 1`] = `
+<fieldset
+  aria-describedby="123-error"
+  aria-errormessage="123-error"
+  aria-invalid="true"
+  class="cdr-form-group"
+>
+  <legend>
+    
+    
+    
+    <!--v-if-->
+    <!--v-if-->
+  </legend>
+  <div
+    class="cdr-form-group__wrapper cdr-form-group--error"
+  >
+    
+    
+  </div>
+  <div
+    class="cdr-form-error"
+    id="123-error"
+    role="status"
+  >
+    <span
+      class="cdr-form-error__icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="cdr-icon cdr-icon--small cdr-icon--inherit-color"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        
+        
+        
+        <g>
+          <path
+            d="M15.293 16.707a1 1 0 001.414-1.414L9.121 7.707a1 1 0 10-1.414 1.414l7.586 7.586z"
+            role="presentation"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10zm-2 0a8 8 0 11-16 0 8 8 0 0116 0z"
+            fill-rule="evenodd"
+          />
+        </g>
+        
+        <!--v-if-->
+      </svg>
+    </span>
+    
+    <span>
+      false!
     </span>
     
   </div>

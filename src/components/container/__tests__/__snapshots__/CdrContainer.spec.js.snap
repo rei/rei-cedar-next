@@ -1,8 +1,18 @@
 // Vitest Snapshot v1
 
-exports[`CdrContainer > matches snapshot 1`] = `
+exports[`CdrContainer > using the default slot > renders correctly 1`] = `
 <div
   class="cdr-container cdr-container--static"
+>
+  
+  foo
+  
+</div>
+`;
+
+exports[`CdrContainer > with "fluid" modifier > renders correctly 1`] = `
+<div
+  class="cdr-container cdr-container--fluid"
 >
   
   foo

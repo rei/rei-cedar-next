@@ -2,25 +2,38 @@ import { mount } from '../../../../test/vue-jest-style-workaround.js';
 import CdrQuote from '../CdrQuote.vue';
 
 describe('CdrQuote', () => {
-  it('renders correctly', () => {
-    const wrapper = mount(CdrQuote, {
-      propsData: {
-        tag: 'aside',
-        summary: 'This is the summary',
-        citation: 'This is the citation'
-      }
+
+  describe('default component', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrQuote, {
+        propsData: {
+          tag: 'aside',
+          summary: 'This is the summary',
+          citation: 'This is the citation'
+        }
+      });
     });
-    expect(wrapper.element).toMatchSnapshot();
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
   });
 
-  it('renders pullquote correctly', () => {
-    const wrapper = mount(CdrQuote, {
-      propsData: {
-        summary: 'This is the pull summary',
-        citation: 'This is the pull citation',
-        modifier: 'pull'
-      }
+  describe('pullquote', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(CdrQuote, {
+        propsData: {
+          summary: 'This is the pull summary',
+          citation: 'This is the pull citation',
+          modifier: 'pull'
+        }
+      });
     });
-    expect(wrapper.element).toMatchSnapshot();
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
   });
 });

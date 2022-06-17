@@ -1,6 +1,140 @@
 // Vitest Snapshot v1
 
-exports[`CdrButton > renders correctly 1`] = `
+exports[`CdrButton > component unit tests > default component with no configuration > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium"
+  type="button"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > when "el" is set to "a" > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium"
+  el="a"
+  type="button"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > when "iconOnly" and "withBackground" is set to true > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--icon-only-medium cdr-button--icon-only cdr-button--with-background"
+  type="button"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > when "iconOnly" is set to true and size is "large" > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--icon-only-large cdr-button--icon-only"
+  type="button"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > with a function passed to the onClick attribute > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium"
+  type="button"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > with an icon-left slot > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium cdr-button--has-icon-left"
+  type="button"
+>
+  
+  <div />
+  
+  
+  
+  default slot for text
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > with an icon-left slot > renders correctly 2`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium cdr-button--has-icon-right"
+  type="button"
+>
+  
+  
+  
+  
+  default slot for text
+  
+  
+  
+  <div />
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > with prop "type" set to "reset" > renders correctly 1`] = `
+<button
+  class="cdr-button cdr-button--primary cdr-button--medium"
+  type="reset"
+>
+  
+  
+  
+  
+  
+  
+</button>
+`;
+
+exports[`CdrButton > component unit tests > with tag prop set to "a" > renders correctly 1`] = `
+<a
+  class="cdr-button cdr-button--primary cdr-button--medium"
+>
+  
+  
+  
+  
+  
+  
+</a>
+`;
+
+exports[`CdrButton > snapshot test > renders correctly 1`] = `
 <button
   class="cdr-button cdr-button--primary cdr-button--medium"
   type="button"

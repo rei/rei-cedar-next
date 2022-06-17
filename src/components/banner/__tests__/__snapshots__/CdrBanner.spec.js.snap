@@ -1,6 +1,38 @@
 // Vitest Snapshot v1
 
-exports[`CdrBanner > renders a right-icon 1`] = `
+exports[`CdrBanner > with icon-left slot > renders correctly 1`] = `
+<div
+  class="cdr-banner cdr-banner--default"
+>
+  <div
+    class="cdr-banner__wrapper undefined"
+  >
+    <div
+      class="cdr-banner__main"
+    >
+      <div
+        class="cdr-banner__icon-left"
+      >
+        
+        <div />
+        
+      </div>
+      <span
+        class="cdr-banner__message"
+      >
+        
+        hey im a banner
+        
+      </span>
+      <!--v-if-->
+    </div>
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+</div>
+`;
+
+exports[`CdrBanner > with icon-right slot > renders correctly 1`] = `
 <div
   class="cdr-banner cdr-banner--default"
 >
@@ -38,39 +70,7 @@ exports[`CdrBanner > renders a right-icon 1`] = `
 </div>
 `;
 
-exports[`CdrBanner > renders correctly 1`] = `
-<div
-  class="cdr-banner cdr-banner--default"
->
-  <div
-    class="cdr-banner__wrapper undefined"
-  >
-    <div
-      class="cdr-banner__main"
-    >
-      <div
-        class="cdr-banner__icon-left"
-      >
-        
-        <div />
-        
-      </div>
-      <span
-        class="cdr-banner__message"
-      >
-        
-        hey im a banner
-        
-      </span>
-      <!--v-if-->
-    </div>
-    <!--v-if-->
-  </div>
-  <!--v-if-->
-</div>
-`;
-
-exports[`CdrBanner > renders the info-action slot 1`] = `
+exports[`CdrBanner > with info-action slot > renders correctly 1`] = `
 <div
   class="cdr-banner cdr-banner--default"
 >
@@ -114,7 +114,33 @@ exports[`CdrBanner > renders the info-action slot 1`] = `
 </div>
 `;
 
-exports[`CdrBanner > renders the message-body slot 1`] = `
+exports[`CdrBanner > with just the default slot > with "type" prop set to "info" > renders correctly 1`] = `
+<div
+  class="cdr-banner cdr-banner--info"
+>
+  <div
+    class="cdr-banner__wrapper undefined"
+  >
+    <div
+      class="cdr-banner__main"
+    >
+      <!--v-if-->
+      <span
+        class="cdr-banner__message"
+      >
+        
+        hey im a banner
+        
+      </span>
+      <!--v-if-->
+    </div>
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+</div>
+`;
+
+exports[`CdrBanner > with message-body slot > renders correctly 1`] = `
 <div
   class="cdr-banner cdr-banner--default"
 >

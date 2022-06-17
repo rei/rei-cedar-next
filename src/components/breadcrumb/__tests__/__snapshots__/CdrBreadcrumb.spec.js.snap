@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`CdrBreadcrumb > renders correctly 1`] = `
+exports[`CdrBreadcrumb > with 3 or more breadcrumb items > renders correctly 1`] = `
 <nav
   aria-label="breadcrumbs"
   class="cdr-breadcrumb"
@@ -43,7 +43,7 @@ exports[`CdrBreadcrumb > renders correctly 1`] = `
         class="cdr-breadcrumb__link"
         href="http://google.com"
       >
-        Long Breadcrumb Step 1
+        Longer Breadcrumb List Step 1
       </a>
       
       <span
@@ -61,7 +61,7 @@ exports[`CdrBreadcrumb > renders correctly 1`] = `
         class="cdr-breadcrumb__link"
         href="http://rei.com"
       >
-        Long Breadcrumb Step 2
+        Longer Breadcrumb Step 2
       </a>
       
       <span
@@ -79,7 +79,7 @@ exports[`CdrBreadcrumb > renders correctly 1`] = `
         class="cdr-breadcrumb__link"
         href="http://yahoo.com"
       >
-        Long Breadcrumb Step 3
+        Longer Breadcrumb Step 3
       </a>
       
       <!--v-if-->

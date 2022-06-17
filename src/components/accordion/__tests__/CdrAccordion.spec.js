@@ -118,7 +118,12 @@ describe('CdrAccordion', () => {
           done();
         }, 500)
       });
-      it('emits an "accordion-toggle" event', async () => {
+
+      it('sets the "isOpenClass" computed prop to "cdr-accordion--open" ', () => {
+        expect(wrapper.vm.isOpenClass).toEqual('cdr-accordion--open');
+      });
+
+      it('emits an "accordion-toggle" event', () => {
         expect(wrapper.emitted('accordion-toggle'));
       });
       describe('a11y requirements', () => {

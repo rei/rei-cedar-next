@@ -4,19 +4,26 @@ import CdrGrid from '../CdrGrid.vue';
 
 
 describe('CdrGrid', () => {
-  it('matches snapshot', () => {
-    const wrapper = mount(CdrGrid, {
-      slots: {
-        // TODO: plain HTML in VTU slots raise a warning for "Property undefined was accessed during render but is not defined on instance."
-        default: h('div', 'griddy'),
-      }
+  describe('simple grid', ()=>{
+    let wrapper;
+    beforeEach(()=>{
+      wrapper = mount(CdrGrid, {
+        slots: {
+          // TODO: plain HTML in VTU slots raise a warning for "Property undefined was accessed during render but is not defined on instance."
+          default: h('div', 'griddy'),
+        }
+      });
     });
-    expect(wrapper.element).toMatchSnapshot();
-  });
 
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+  })
 
-  it('complex example matches snapshot', () => {
-    const wrapper = mount(CdrGrid, {
+  describe('complex grid example', ()=>{
+    let wrapper;
+    beforeEach(()=>{
+      wrapper = mount(CdrGrid, {
       propsData: {
         gutter: 'none@xs large@sm medium@md small@sm',
         tag: 'ul'
@@ -25,6 +32,10 @@ describe('CdrGrid', () => {
         default: h('li', 'list')
       }
     });
-    expect(wrapper.element).toMatchSnapshot();
-  });
+    });
+
+    it('renders correctly', () => {
+      expect(wrapper.element).toMatchSnapshot();
+    });
+  })
 });

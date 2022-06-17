@@ -43,7 +43,7 @@ exports[`CdrModal.vue > default open 1`] = `
               
               <button
                 aria-label="Close"
-                class="cdr-button cdr-button--primary cdr-button--icon-only-medium cdr-button--icon-only cdr-button--icon-only cdr-button--with-background cdr-modal__close-button"
+                class="cdr-button cdr-button--primary cdr-button--icon-only-medium cdr-button--icon-only cdr-button--with-background cdr-modal__close-button"
                 type="button"
               >
                 

@@ -6,7 +6,7 @@ import { h } from '@vue/runtime-core';
 describe('CdrAccordionGroup', () => {
   let wrapper;
 
-  describe('when mounted', () => {
+  describe('component snapshot when mounted', () => {
     beforeEach(()=>{
       wrapper = mount(h(CdrAccordionGroup, {}, {default: () => [
         h(CdrAccordion, {id: 'tab1', level: '2', label: 'label1'}),
@@ -19,7 +19,7 @@ describe('CdrAccordionGroup', () => {
     });  
   });
 
-  describe('when unwrapped', () => {
+  describe('component snapshot when mounted unwrapped', () => {
     let wrapper;
     let buttons;
     beforeEach(()=>{
@@ -34,6 +34,17 @@ describe('CdrAccordionGroup', () => {
     it('renders correctly', () => {
       expect(wrapper.element).toMatchSnapshot()
     });
+  });
+
+  describe('component unit tests', () => {
+    let wrapper;
+    beforeEach(()=>{
+      wrapper = mount(h(CdrAccordionGroup, { unwrap: true }, {default: () => [
+        h(CdrAccordion, {id: 'tab1', level: '2', label: 'label1'}),
+        h(CdrAccordion, {id: 'tab2', level: '2', label: 'label2'}),
+        h(CdrAccordion, {id: 'tab3', level: '2', label: 'label3'}),
+      ]}));
+    })
 
     describe('a11y requirements', ()=>{
       it('accordion groups are organized into unordered lists', ()=>{

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`CdrGrid > complex example matches snapshot 1`] = `
+exports[`CdrGrid > complex grid example > renders correctly 1`] = `
 <ul
   class="cdr-grid cdr-grid--gutter-none@xs cdr-grid--gutter-large@sm cdr-grid--gutter-medium@md cdr-grid--gutter-small@sm"
 >
@@ -12,7 +12,7 @@ exports[`CdrGrid > complex example matches snapshot 1`] = `
 </ul>
 `;
 
-exports[`CdrGrid > matches snapshot 1`] = `
+exports[`CdrGrid > simple grid > renders correctly 1`] = `
 <div
   class="cdr-grid cdr-grid--gutter-medium@xs cdr-grid--gutter-medium@sm cdr-grid--gutter-large@md cdr-grid--gutter-large@lg"
 >
