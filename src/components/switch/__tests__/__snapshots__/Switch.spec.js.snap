@@ -1,0 +1,123 @@
+// Vitest Snapshot v1
+
+exports[`CdrSwitch > matches snapshot 1`] = `
+<div
+  class="cdr-switch cdr-switch--medium"
+>
+  <div
+    class="cdr-switch__label"
+    id="id-123"
+  >
+    
+    <span
+      class="custom-text-style"
+    >
+      Pull the lever Kronk!
+    </span>
+    
+  </div>
+  <button
+    aria-checked="false"
+    aria-labelledby="id-123"
+    class="cdr-switch__button"
+    role="switch"
+  >
+    <svg
+      aria-hidden="true"
+      class="cdr-icon cdr-icon--medium cdr-switch__button-icon"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      
+      
+      
+      <path
+        d="M16.77 8.645a1 1 0 10-1.533-1.286l-5.95 7.083-1.52-1.817a1 1 0 10-1.533 1.285l2.227 2.66a.999.999 0 001.565.1l6.743-8.025z"
+        role="presentation"
+      />
+      
+      <!--v-if-->
+    </svg>
+    <svg
+      aria-hidden="true"
+      class="cdr-icon cdr-icon--medium cdr-switch__button-icon"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      
+      
+      
+      <path
+        d="M13.406 12.006l3.297-3.296a1 1 0 10-1.414-1.414l-3.297 3.295-3.285-3.295A1 1 0 107.293 8.71l3.285 3.295-3.285 3.288a1 1 0 001.414 1.415l3.285-3.289 3.297 3.289a1 1 0 001.414-1.415l-3.297-3.287z"
+        role="presentation"
+      />
+      
+      <!--v-if-->
+    </svg>
+    <div
+      class="cdr-switch__handle"
+    />
+  </button>
+</div>
+`;
+
+exports[`CdrSwitch > when the "checked" property is set to true > matches snapshot 1`] = `
+<div
+  class="cdr-switch cdr-switch--medium"
+>
+  <div
+    class="cdr-switch__label"
+    id="id-123"
+  >
+    
+    <span
+      class="custom-text-style"
+    >
+      Pull the lever Kronk!
+    </span>
+    
+  </div>
+  <button
+    aria-checked="true"
+    aria-labelledby="id-123"
+    class="cdr-switch__button"
+    role="switch"
+  >
+    <svg
+      aria-hidden="true"
+      class="cdr-icon cdr-icon--medium cdr-switch__button-icon"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      
+      
+      
+      <path
+        d="M16.77 8.645a1 1 0 10-1.533-1.286l-5.95 7.083-1.52-1.817a1 1 0 10-1.533 1.285l2.227 2.66a.999.999 0 001.565.1l6.743-8.025z"
+        role="presentation"
+      />
+      
+      <!--v-if-->
+    </svg>
+    <svg
+      aria-hidden="true"
+      class="cdr-icon cdr-icon--medium cdr-switch__button-icon"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      
+      
+      
+      <path
+        d="M13.406 12.006l3.297-3.296a1 1 0 10-1.414-1.414l-3.297 3.295-3.285-3.295A1 1 0 107.293 8.71l3.285 3.295-3.285 3.288a1 1 0 001.414 1.415l3.285-3.289 3.297 3.289a1 1 0 001.414-1.415l-3.297-3.287z"
+        role="presentation"
+      />
+      
+      <!--v-if-->
+    </svg>
+    <div
+      class="cdr-switch__handle"
+    />
+  </button>
+</div>
+`;

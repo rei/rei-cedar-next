@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
-    "@rei/cdr-tokens": "^10.0.3",
+    "@rei/cdr-tokens": "^10.1.0",
     "@rei/cedar-icons": "^2.5.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@vitejs/plugin-vue": "^2.2.4",
@@ -63,7 +63,7 @@
     "backstopjs": "^5.3.0",
     "c8": "^7.11.0",
     "chalk": "^4.1.0",
-    "chromedriver": "^101.0.0",
+    "chromedriver": "^103.0.0",
     "concat": "^1.0.3",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -125,9 +125,9 @@
     "vue": "^3.2.23"
   },
   "peerDependencies": {
-    "vue": "^3.2.23",
     "core-js": "^3.22.7",
     "lodash-es": "^4.17.21",
-    "tabbable": "^4.0.0"
+    "tabbable": "^4.0.0",
+    "vue": "^3.2.23"
   }
 }

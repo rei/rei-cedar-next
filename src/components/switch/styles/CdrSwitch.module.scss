@@ -1,0 +1,215 @@
+@import '../../../styles/settings/index.scss';
+
+.cdr-switch {
+  display: flex;
+  align-items: center;
+
+  &__button {
+    margin: 0 $cdr-space-quarter-x;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border: 0.1rem solid $cdr-color-border-secondary;
+    background-color: $cdr-color-background-switch-default-rest;
+
+    .cdr-switch__button-icon {
+      fill: $cdr-color-icon-default;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $cdr-color-border-secondary;
+      outline: none;
+      background-color: $cdr-color-background-switch-default-focus;
+
+      .cdr-switch__button-icon {
+        fill: $cdr-color-icon-default;
+      }
+
+      .cdr-switch__handle {
+        &::before {
+          background-color: $cdr-color-background-switch-handle-default-focus;
+        }
+      }
+    }
+
+    &:hover:not(:focus) {
+      border: 0.1rem solid $cdr-color-border-switch-default-hover;
+      background-color: $cdr-color-background-switch-default-hover;
+
+      .cdr-switch__button-icon {
+        fill: $cdr-color-icon-emphasis;
+      }
+
+      .cdr-switch__handle {
+        &::before {
+          border: 0.1rem solid $cdr-color-border-switch-default-hover;
+        }
+      }
+    }
+
+    &[aria-checked="true"] {
+      border: none;
+      background-color: $cdr-color-background-switch-selected-default-rest;
+
+      .cdr-switch__button-icon {
+        fill: $cdr-color-icon-switch-selected-default-rest;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 0.2rem $cdr-color-border-secondary;
+        background-color: $cdr-color-background-switch-selected-default-focus;
+        outline: none;
+
+        .cdr-switch__handle {
+          &::before {
+            border: 0.1rem solid $cdr-color-border-switch-handle-default-focus;
+            background-color: $cdr-color-background-switch-handle-selected-default-focus;
+          }
+        }
+
+        .cdr-switch__button-icon {
+          fill: $cdr-color-icon-switch-selected-default-focus;
+        }
+      }
+
+      .cdr-switch__handle {
+        &::before {
+          border: none;
+          background-color: $cdr-color-background-switch-handle-selected-default-rest;
+        }
+      }
+
+      &:hover:not(:focus) {
+        border: 0.1rem solid $cdr-color-border-secondary;
+        background-color: $cdr-color-background-switch-selected-default-hover;
+
+        .cdr-switch__button-icon {
+          fill: $cdr-color-icon-switch-selected-default-hover;
+        }
+
+        .cdr-switch__handle {
+          &::before {
+            border: 0.1rem solid $cdr-color-border-switch-handle-default-hover;
+          }
+        }
+      }
+    }
+  }
+
+  &__label {
+    margin: 0 $cdr-space-quarter-x;
+    @include cdr-text-utility-sans-300;
+  }
+
+  &__handle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-transition: $cdr-duration-3-x $cdr-timing-function-ease-out;
+    transition: $cdr-duration-3-x $cdr-timing-function-ease-out;
+
+    &::before {
+      position: absolute;
+      content: "";
+      border: 0.1rem solid $cdr-color-border-secondary;
+      background-color: $cdr-color-background-switch-handle-default-rest;
+      -webkit-transition: left $cdr-duration-3-x $cdr-timing-function-ease-out, right $cdr-duration-3-x $cdr-timing-function-ease-out;
+      transition: left $cdr-duration-3-x $cdr-timing-function-ease-out, right $cdr-duration-3-x $cdr-timing-function-ease-out;
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &--large {
+    .cdr-switch {
+      &__button {
+        width: 6.0rem;
+        height: 3.1rem;
+        border-radius: 1.6rem;
+
+        &[aria-checked="true"] {
+          .cdr-switch__handle {
+            &::before {
+              left: 3.2rem;
+              top: 0.4rem;
+            }
+          }
+
+          &:hover:not(:focus) {
+            .cdr-switch__handle {
+              &::before {
+                top: 0.3rem;
+              }
+            }
+          }
+        }
+      }
+
+      &__button-icon {
+        height: 2.4rem;
+        width: 2.4rem;
+      }
+
+      &__handle {
+        &::before {
+          border-radius: 1.4rem;
+          height: 2.3rem;
+          width: 2.3rem;
+          top: 0.3rem;
+          left: 0.3rem;
+        }
+      }
+    }
+  }
+
+  &--medium {
+    .cdr-switch {
+      &__button {
+        width: 4.2rem;
+        height: 2.3rem;
+        border-radius: 1.4rem;
+
+        &[aria-checked="true"] {
+          .cdr-switch__handle {
+            &::before {
+              left: 2.2rem;
+              width: 1.5rem;
+              height: 1.5rem;
+              top: .4rem;
+            }
+          }
+
+          &:hover:not(:focus) {
+            .cdr-switch__handle {
+              &::before {
+                left: 2.2rem;
+                top: .3rem;
+              }
+            }
+          }
+        }
+      }
+
+      &__button-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+      &__handle {
+        &::before {
+          border-radius: 1.4rem;
+          height: 1.5rem;
+          width: 1.5rem;
+          top: .3rem;
+          left: .3rem;
+        }
+      }
+    }
+  }
+}
